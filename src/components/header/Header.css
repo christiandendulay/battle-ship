@@ -1,0 +1,56 @@
+.header {
+  background-color: #9595ff;
+  height: 30px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.header__block {
+  background-color: #494949;
+  height: 100%;
+  width: 10%;
+}
+
+.search {
+  height: 100%;
+  display: flex;
+  width: 70%;
+}
+
+.search__input {
+  background-color: white;
+  height: 100%;
+  width: 90%;
+}
+
+.search__block {
+  background-color: #7677b8;
+  height: 100%;
+  width: 10%;
+}
+
+.icons {
+  height: 100%;
+  display: flex;
+  width: 20%;
+  gap: 10px;
+}
+
+.icons__block {
+  background-color: #494949;
+  height: 100%;
+  width: 33%;
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    height: 70px;
+  }
+}

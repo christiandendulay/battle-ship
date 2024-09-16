@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.battle-ship-board {
+  display: flex;
+  flex-direction: column;
+}
+
+.battle-ship-score {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .battle-ship-board {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  .battle-ship-score {
+    width: 716px;
+    display: grid;
+    grid-template-columns: 0.75fr 2fr;
+  }
+  .container {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 1rem;
+  }
+  .battle-ship-board {
+    flex-direction: row-reverse;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .battle-ship-score {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0;
+  }
+}

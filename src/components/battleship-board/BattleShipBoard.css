@@ -1,0 +1,24 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  border: 0.5rem solid #ffb201;
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    width: 716px;
+    height: 716px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    width: 616px;
+    height: 616px;
+    margin: 0;
+  }
+}

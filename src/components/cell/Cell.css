@@ -1,0 +1,54 @@
+.cell {
+  background-color: #f8f8f8;
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
+  min-height: 25px;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.cell__placeholder {
+  height: 100%;
+  width: 100%;
+  min-height: 25px;
+}
+
+.cell__img {
+  height: 25px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .cell {
+    height: 70px;
+    width: 70px;
+  }
+
+  .cell__img {
+    height: 70px;
+    width: 100%;
+  }
+
+  .cell__placeholder {
+    height: 70px;
+    width: 70px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cell {
+    height: 60px;
+    width: 60px;
+  }
+
+  .cell__img {
+    height: 60px;
+    width: 60px;
+  }
+
+  .cell__placeholder {
+    height: 60px;
+    width: 60px;
+  }
+}

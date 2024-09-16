@@ -1,0 +1,40 @@
+.ship {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  line-height: 0;
+}
+
+.ship__status {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.ship__status-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.ship__img {
+  height: 40px;
+}
+
+.ship__img-container {
+  width: 50%;
+}
+
+@media (min-width: 1024px) {
+  .ship__img {
+    height: 70px;
+  }
+
+  .ship {
+    gap: 1rem;
+  }
+
+  .ship__status-icon {
+    width: 30px;
+    height: 30px;
+  }
+}

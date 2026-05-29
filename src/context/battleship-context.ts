@@ -19,10 +19,8 @@ export const BattleShipContext = createContext<BattleShipContextType>({
   }),
   shipTypes: {},
   layout: [],
-  /* eslint-disable @typescript-eslint/no-unused-vars */
   updateBattleShip: (__coordinate: Coordinate) => () => {},
   isCellHit: (__coordinate: Coordinate) => false,
-  /* eslint-enable @typescript-eslint/no-unused-vars */
   checkIfAllHit: () => false,
   resetBoard: () => {},
 });

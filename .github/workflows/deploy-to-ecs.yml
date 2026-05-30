@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Create production env file
-        run: |
-          echo "VITE_ASSETS_URL=${{ vars.VITE_ASSETS_URL }}" >> .env.production
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -29,14 +25,21 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build, tag, and push image to ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
+          VITE_ASSETS_URL: ${{ vars.VITE_ASSETS_URL }}
         run: |
-          docker build -t $ECR_REGISTRY/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG
+          docker buildx build \
+            --platform linux/amd64 \
+            --build-arg VITE_ASSETS_URL=$VITE_ASSETS_URL \
+            -t $ECR_REGISTRY/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG \
+            --push .
           echo "image=$ECR_REGISTRY/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Download task definition
@@ -69,13 +72,18 @@ jobs:
           EOF
 
       - name: Register new task definition
+        id: register-task
         run: |
-          aws ecs register-task-definition --cli-input-json file://new-task-def.json
+          REVISION=$(aws ecs register-task-definition \
+            --cli-input-json file://new-task-def.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          echo "revision=$REVISION" >> $GITHUB_OUTPUT
 
       - name: Update ECS service
         run: |
           aws ecs update-service \
             --cluster ${{ vars.ECS_CLUSTER }} \
             --service ${{ vars.ECS_SERVICE }} \
-            --task-definition ${{ vars.ECS_TASK_DEFINITION }} \
+            --task-definition ${{ steps.register-task.outputs.revision }} \
             --force-new-deployment

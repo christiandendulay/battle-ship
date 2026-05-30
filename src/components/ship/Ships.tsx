@@ -1,11 +1,9 @@
 import { useBattleShipContext } from '../../context/battleship-context';
 import './Ships.css';
-import Cruiser from '../../assets/Cruiser Shape.png';
-import Carrier from '../../assets/Carrier Shape.png';
-import Submarine from '../../assets/Submarine Shape.png';
-import Aircraft from '../../assets/Aircraft Shape.png';
-import Battleship from '../../assets/Battleship Shape.png';
+
 import Ship from './Ship';
+import { getAssetUrl } from '../../utils/assets';
+import { SHIP_TYPE } from '../../types/enum';
 
 export function Ships() {
   const { layout, shipTypes } = useBattleShipContext();
@@ -31,15 +29,15 @@ export function Ships() {
 function getImageSrc(ship: string) {
   switch (ship) {
     case 'carrier':
-      return Carrier;
+      return getAssetUrl(SHIP_TYPE.CARRIER);
     case 'battleship':
-      return Battleship;
+      return getAssetUrl(SHIP_TYPE.BATTLESHIP);
     case 'cruiser':
-      return Cruiser;
+      return getAssetUrl(SHIP_TYPE.CRUISER);
     case 'submarine':
-      return Submarine;
+      return getAssetUrl(SHIP_TYPE.SUBMARINE);
     case 'destroyer':
-      return Aircraft;
+      return getAssetUrl(SHIP_TYPE.DESTROYER);
     default:
       return '';
   }

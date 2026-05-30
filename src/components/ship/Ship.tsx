@@ -1,9 +1,10 @@
-import Miss from '../../assets/Miss small.png';
-import Hit from '../../assets/Hit small.png';
+
 
 import { useBattleShipContext } from '../../context/battleship-context';
 import { ShipLayout } from '../../types';
 import './Ship.css';
+import { getAssetUrl } from '../../utils/assets';
+import { RESULT_TYPE } from '../../types/enum';
 
 export type ShipProps = {
   src: string;
@@ -19,15 +20,15 @@ export function Ship({ src, size, alt, positions }: ShipProps) {
   return (
     <div className="ship">
       <div className="ship__img-container">
-        <img className="ship__img" src={src} alt={alt} />
+        <img className="ship__img" src={src} alt={alt} draggable={false} />
       </div>
 
       <div className="ship__status">
         {Array.from({ length: hit }, (_, sizeIndex) => (
-          <img alt="hit" src={Hit} key={`hit-${sizeIndex}`} className="ship__status-icon"></img>
+          <img alt="hit" src={getAssetUrl(RESULT_TYPE.HIT_SMALL)} key={`hit-${sizeIndex}`} className="ship__status-icon" draggable={false}></img>
         ))}
         {Array.from({ length: size - hit }, (_, sizeIndex) => (
-          <img alt="miss" src={Miss} key={`miss-${sizeIndex}`} className="ship__status-icon"></img>
+          <img alt="miss" src={getAssetUrl(RESULT_TYPE.MISS_SMALL)} key={`miss-${sizeIndex}`} className="ship__status-icon" draggable={false}></img>
         ))}
       </div>
     </div>

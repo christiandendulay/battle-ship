@@ -2,8 +2,9 @@ import { memo } from 'react';
 import { useBattleShipContext } from '../../context/battleship-context';
 import { Cell as CellType } from '../../types';
 import './Cell.css';
-import Hit from '../../assets/Hit.png';
-import Miss from '../../assets/Miss.png';
+import { getAssetUrl } from '../../utils/assets';
+import { RESULT_TYPE } from '../../types/enum';
+
 
 export type CellProps = {
   cell: CellType;
@@ -21,10 +22,10 @@ export function Cell({ cell, row, column }: CellProps) {
   const handleOnClick = updateBattleShip(cellPosition);
 
   const isHit = isCellHit(cellPosition);
-  const src = isHit ? Hit : Miss;
+  const src =   getAssetUrl(isHit ? RESULT_TYPE.HIT : RESULT_TYPE.MISS);
   return (
     <button onClick={handleOnClick} disabled={isActive} className="cell">
-      {isActive ? <img className="cell__img" src={src} /> : <div className="cell__placeholder" />}
+      {isActive ? <img className="cell__img" src={src} draggable={false} /> : <div className="cell__placeholder" />}
     </button>
   );
 }

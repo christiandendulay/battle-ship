@@ -36,7 +36,7 @@ jobs:
           VITE_ASSETS_URL: ${{ vars.VITE_ASSETS_URL }}
         run: |
           docker buildx build \
-            --platform linux/amd64 \
+            --platform linux/arm64 \
             --build-arg VITE_ASSETS_URL=$VITE_ASSETS_URL \
             -t $ECR_REGISTRY/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG \
             --push .
@@ -57,12 +57,10 @@ jobs:
           with open('task-definition.json', 'r') as f:
               task_def = json.load(f)
 
-          # Update container image
           for container in task_def['containerDefinitions']:
               if container['name'] == '${{ vars.CONTAINER_NAME }}':
                   container['image'] = '${{ steps.build-image.outputs.image }}'
 
-          # Remove AWS-managed fields that can't be re-registered
           for field in ['taskDefinitionArn', 'revision', 'status', 'requiresAttributes', 
                         'compatibilities', 'registeredAt', 'registeredBy']:
               task_def.pop(field, None)

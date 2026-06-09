@@ -1,0 +1,21 @@
+{
+  "name": "@battleship/ui",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@battleship/eslint-config": "workspace:*",
+    "@battleship/prettier-config": "workspace:*",
+    "@types/react": "^18.2.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -21,17 +21,17 @@ ENV VITE_API_URL=$VITE_API_URL
 
 RUN pnpm turbo run build --filter=@battleship/web
 
-# --- Production stage: Serve with Node.js ---
-FROM node:24-alpine
-WORKDIR /app
+# --- Production stage: nginx ---
+FROM nginx:alpine
 
-# Install sirv-cli (fast, zero-config static server for Vite)
-RUN npm install -g sirv-cli@2
+# Copy built files
+COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
 
-# Copy built files from builder
-COPY --from=builder /app/apps/web/dist ./dist
+# Copy nginx template and entrypoint
+COPY apps/web/nginx.conf.template /etc/nginx/conf.d/default.conf.template
+COPY apps/web/docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 80
 
-# Serve with SPA support, gzip, and single-page app fallback
-CMD ["sirv", "dist", "--host", "0.0.0.0", "--port", "80", "--single"]
+CMD ["/docker-entrypoint.sh"]

@@ -3,6 +3,15 @@ name: Build and Deploy to ECS
 on:
   push:
     branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'docker-compose.yml'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - 'turbo.json'
+      - '.github/workflows/deploy-to-ecs.yml'
 
 jobs:
   build-and-deploy:

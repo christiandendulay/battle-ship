@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 
+function normalizeUrl(base: string): string {
+  return base.replace(/\/+$/, '').trim();
+}
+
 export function useAssetUrl(key: string | null, apiUrl: string) {
   const [url, setUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -7,8 +11,9 @@ export function useAssetUrl(key: string | null, apiUrl: string) {
   useEffect(() => {
     if (!key) return;
 
+    const base = normalizeUrl(apiUrl);
     setLoading(true);
-    fetch(`${apiUrl}/api/assets/${encodeURIComponent(key)}`)
+    fetch(`${base}/api/assets/${encodeURIComponent(key)}`)
       .then((r) => r.json())
       .then((data) => setUrl(data.url))
       .finally(() => setLoading(false));
@@ -24,8 +29,9 @@ export function useAssetUrls(keys: string[], apiUrl: string) {
   useEffect(() => {
     if (keys.length === 0) return;
 
+    const base = normalizeUrl(apiUrl);
     setLoading(true);
-    fetch(`${apiUrl}/api/assets/batch`, {
+    fetch(`${base}/api/assets/batch`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ keys }),

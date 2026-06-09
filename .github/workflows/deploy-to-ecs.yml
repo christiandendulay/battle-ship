@@ -53,12 +53,12 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: |
+          # VITE_API_URL left empty — same-origin requests via nginx proxy
           docker buildx build \
             --platform linux/arm64 \
             -f apps/web/Dockerfile \
-            --build-arg VITE_API_URL=$VITE_API_URL \
+            --build-arg VITE_API_URL= \
             -t $ECR_REGISTRY/${{ vars.ECR_WEB_REPOSITORY }}:$IMAGE_TAG \
             --push .
           echo "image=$ECR_REGISTRY/${{ vars.ECR_WEB_REPOSITORY }}:$IMAGE_TAG" >> $GITHUB_OUTPUT

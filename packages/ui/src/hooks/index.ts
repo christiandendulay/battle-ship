@@ -1,0 +1,1 @@
+export { useAssetUrl } from './useAssetUrls';

@@ -1,0 +1,29 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "plugins": ["prettier-plugin-sort-imports", "prettier-plugin-packagejson"],
+  "importOrder": ["^react$", "^react-dom", "^@?\\w", "^@battleship/", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "packageSortOrder": [
+    "name",
+    "version",
+    "private",
+    "description",
+    "author",
+    "license",
+    "main",
+    "module",
+    "types",
+    "exports",
+    "files",
+    "scripts",
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "optionalDependencies"
+  ]
+}
